@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadForm" >
+    <input type="file" name="image" accept="image/*" id="upload_btn">
+    <input type="submit" id="submit_btn">
+  </form>
+  <h1 id="status"></h1>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    $('#uploadForm').submit(function () {
+      $("#status").empty().text("File is uploading...");
+      $(this).ajaxSubmit({
+
+        error: function (xhr) {
+          status('Error: ' + xhr.status);
+        },
+
+        success: function (response) {
+          $("#status").empty().text(response);
+          console.log(response);
+        }
+      });
+      //Very important line, it disable the page refresh.
+      return false;
+    });
+  });
+</script>
+
+</html>
