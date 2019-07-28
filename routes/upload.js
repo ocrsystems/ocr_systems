@@ -1,7 +1,6 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
 import uuid from 'uuid/v1';
 import { spawn } from 'child_process';
 import upload from '../middleware/uploadMiddleware';
@@ -21,9 +20,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     // }).toFile(filePath);
     const buf = Buffer.from(req.body.file.buffer.replace(/^data:image\/\w+;base64,/, ''), 'base64');
     fs.writeFile(filePath, buf, 'binary', (err) => {
-      if (err) {
-        return console.log(err);
-      }
+      if (err) throw new Error('Error in image uploading');
       console.log("The file was saved!");
       return true;
     });
@@ -31,7 +28,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     text.on('close', (code) => {
       console.log('code', code);
       fs.readFile(`${imagePath}/${fileName}.txt`, (err, data) => {
-        console.log('ERROR', err);
+        if (err) throw new Error('File not find');
         console.log('data', data.toString());
         return res.status(200).send(data.toString());
       });
