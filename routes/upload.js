@@ -13,8 +13,20 @@ router.post('/', upload.single('image'), async (req, res) => {
     const imagePath = path.join(__dirname, './../public/images');
     const fileName = `${uuid()}.png`;
     const filePath = path.resolve(`${imagePath}/${fileName}`);
-    if (!req.file) throw new Error('Please provide an image');
-    await sharp(req.file.buffer).toFile(filePath);
+    console.log('req.body.file', typeof req.body.language);
+    if (!req.body.file) throw new Error('Please provide an image');
+    // await sharp(Buffer.from(req.body.file.buffer)).resize(300, 300, {
+    //   fit: sharp.fit.inside,
+    //   withoutEnlargement: true
+    // }).toFile(filePath);
+    const buf = Buffer.from(req.body.file.buffer.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+    fs.writeFile(filePath, buf, 'binary', (err) => {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("The file was saved!");
+      return true;
+    });
     const text = spawn('tesseract', [`${imagePath}/${fileName}`, `${imagePath}/${fileName}`]);
     text.on('close', (code) => {
       console.log('code', code);
