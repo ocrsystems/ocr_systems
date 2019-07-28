@@ -4,6 +4,7 @@
 <head>
   <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -20,50 +21,30 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1><%= title %></h1>
-    <form class="was-validated" action="" method="POST" id="uploadForm">
+  <div class="container-fluid" id="main_div">
+    <form class="was-validated box" action="" method="POST" id="uploadForm" enctype="multipart/form-data">
       <div class="form-group">
-        <select id="langSelect" class="custom-select" required>
-          <option value="">Choose language</option>
+        <select id="langSelect" class="custom-select " required>
           <option value="en">English</option>
           <option value="ru">Russian</option>
         </select>
-        <div class="invalid-feedback">Select language</div>
+        <button id="submit_btn" class="btn btn-primary btn-md" type="button" onclick="ajaxRequest()">Start
+          process</button>
       </div>
-
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" onchange="previewFile()" id="validatedCustomFile" name="image"
-          accept="image/*" required>
-        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-        <!-- <div class="invalid-feedback">Example invalid custom file feedback</div> -->
+      <div id="upload_download row" >
+        <div class="file-upload-wrapper col-md-6" id="drug_and_drop">
+          <input type="file" class="custom-file-input" onchange="previewFile()" id="validatedCustomFile" name="image"
+            accept="image/*" data-max-file-size="5M" required>
+          <label id="validatedCustomFileLabel" class="file-upload" for="validatedCustomFile">
+            <img id="image_preview" src="./images/drag_and_drop.png" height="400" alt="Image preview...">
+          </label>
+        </div>
+        <div id="download" class="col-md-6">
+          <p id="converted_text"></p>
+        </div>
       </div>
-      <!-- <input type="submit" id="submit_btn"> -->
-      <button class="btn" type="button" onclick="ajaxRequest()">Change Content</button>
-      <img id="image_preview" src="https://sanitationsolutions.net/wp-content/uploads/2015/05/empty-image.png"
-        height="200" alt="Image preview...">
-
     </form>
   </div>
-  <h1 id="status"></h1>
 </body>
-
-<script>
-  // $(document).ready(function () {
-  //   $('#uploadForm').submit(function () {
-  //     $("#status").empty().text("File is uploading...");
-  //     $(this).ajaxSubmit({
-  //       error: function (xhr) {
-  //         status('Error: ' + xhr.status);
-  //       },
-  //       success: function (response) {
-  //         $("#status").empty().text(response);
-  //         console.log(response);
-  //       }
-  //     });
-  //     return false;
-  //   });
-  // });
-</script>
 
 </html>

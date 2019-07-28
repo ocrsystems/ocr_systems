@@ -3,17 +3,39 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+#langSelect {
+  width: 200px;
 }
 
-/* #upload_btn {
-  background-color: darkblue;
-  color: whitesmoke,
-  
-} */
+#image_preview {
+  border: 1px solid darkgray;
+  box-shadow: 1px 1px 5px darkslategrey;
+}
 
-/* #submit_btn {
-  background-color: darkblue;
-  color: whitesmoke
-} */
+#validatedCustomFile{
+  z-index: 2;
+  height: 400px;
+  width: 75%;
+  position: absolute;
+}
+#drug_and_drop{
+  float: left;
+}
+#validatedCustomFileLabel{
+  z-index: 1;
+  height: 400px;
+  width: 75%;
+  position: absolute;
+}
+#download{
+  float: right;
+  border: 1px solid gray;
+  box-shadow: 1px 1px 5px  darkslategrey;
+  height: 100%;
+  display: none
+}
+
+#submit_btn:hover{
+  background-color: #00B7FF;
+  box-shadow: 2px  black inset;
+}

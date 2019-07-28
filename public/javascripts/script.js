@@ -28,26 +28,15 @@ const ajaxRequest = () => {
     language: $('#langSelect').val(),
     file
   };
-  console.log('regData', regData)
   xhr.send(JSON.stringify(regData));
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function (dat) {
     if (xhr.readyState !== 4) return;
     if (xhr.status === 200) {
-      console.log('SUCCESSSS');
-      // $('#result').html(`Registration Success  <br /> 
-      //                           Now you can sign in to your account`);
-      // $("#regForm").hide('slow');
+      console.log('SUCCESSSS,', xhr.response);
+      $('#download').css({ display: 'block' });
+      $('#converted_text').html(xhr.response);
     } else {
       console.log(xhr.status + '-' + xhr.statusText);
     }
   };
 };
-
-// var regData = {
-//   name: $('#userName').val(),
-//   surname: $('#userSurname').val(),
-//   email: $('#userEmail').val(),
-//   gender: $('input[name="gender"]:checked').val(),
-//   password: $('#userPassword').val()
-// }
-// ajaxReg(regData);
