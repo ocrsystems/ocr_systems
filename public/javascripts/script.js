@@ -1,6 +1,6 @@
 const reader = new FileReader();
 const xhr = new XMLHttpRequest();
-const FileSaver = require('./FileSaver');
+
 
 
 const previewFile = () => {
@@ -43,7 +43,7 @@ const ajaxRequest = () => {
   };
 };
 
-function saveDataToFile(string, fileName) {
-  const blob = new Blob([string], { type: 'text/plain;charset=utf-8' });
-  FileSaver.saveAs(blob, "static.txt");
-}
+// function saveDataToFile(string, fileName) {
+ // const blob = new Blob([string], { type: 'text/plain;charset=utf-8' });
+  // FileSaver.saveAs(blob, "static.txt");
+//}
