@@ -1,6 +1,8 @@
 const reader = new FileReader();
 const xhr = new XMLHttpRequest();
 
+
+
 const previewFile = () => {
   const preview = document.getElementById('image_preview');
   const file = document.querySelector('input[type=file]').files[0];
@@ -40,3 +42,8 @@ const ajaxRequest = () => {
     }
   };
 };
+
+// function saveDataToFile(string, fileName) {
+ // const blob = new Blob([string], { type: 'text/plain;charset=utf-8' });
+  // FileSaver.saveAs(blob, "static.txt");
+//}
