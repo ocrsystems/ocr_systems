@@ -19,7 +19,6 @@ Pre-processing of image includes:
 1. Skew Correction: Image obtained from the previous stage may not be correctly oriented, It may be aligned at any angle. So we need to perform Skew correction to make sure that the image forwarded to subsequent
 stages is correctly oriented.
 
-https://miro.medium.com/max/1400/1*bqbvGrhuNZiLM8BU8MMd8Q.png2.
 
 Binarization : It means converting a Coloured image to Binary image(Containing only black & white colours). Usually in practice, This conversion of Coloured image to Binary image is done by creating a intermediate grayscale image.
 Coloured image -> Gray Scale image -> Binary image
@@ -33,7 +32,6 @@ This noise should be removed so that the image will be clean and uniform.
 4. Thinning and Skeletonization : Different images have words in it with different width of strokes. This variability is very high in the case of hand written words. So by using Skeletonization techniques, we can make
 all strokes to have uniform width( Maybe 1 pixel wide or few pixels wide)
 
-https://miro.medium.com/max/1400/1*Rf-GYl80WwfxfysraD6hEw.png
 
 C. Segmentation
 After the Preprocessing stage, a ‘clean’ image is obtained. The next stage is segmentation. Segmentation is nothing but breaking the whole image into subparts to further process them.
