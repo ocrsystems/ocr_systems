@@ -1,8 +1,6 @@
 const reader = new FileReader();
 const xhr = new XMLHttpRequest();
 
-
-
 const previewFile = () => {
   const preview = document.getElementById('image_preview');
   const file = document.querySelector('input[type=file]').files[0];
@@ -31,19 +29,14 @@ const ajaxRequest = () => {
     file
   };
   xhr.send(JSON.stringify(regData));
-  xhr.onreadystatechange = function (dat) {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
     if (xhr.status === 200) {
       console.log('SUCCESSSS,', xhr.response);
       $('#download').css({ display: 'block' });
       $('#converted_text').html(xhr.response);
     } else {
-      console.log(xhr.status + '-' + xhr.statusText);
+      console.log('Error in ajax', `${xhr.status}-${xhr.statusText}`);
     }
   };
 };
-
-// function saveDataToFile(string, fileName) {
- // const blob = new Blob([string], { type: 'text/plain;charset=utf-8' });
-  // FileSaver.saveAs(blob, "static.txt");
-//}
