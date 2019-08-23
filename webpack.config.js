@@ -1,7 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     server: './server.js',
@@ -9,21 +7,21 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].js',
+    pathinfo: true
   },
   watch: true,
   mode: process.env.STAGE || 'development',
   target: 'node',
   node: {
     // Need this when working with express, otherwise the build fails
-    __dirname: false,   // if you don't put this is, __dirname
-    __filename: false,  // and __filename return blank or /
+    __dirname: false, // if you don't put this is, __dirname
+    __filename: false, // and __filename return blank or /
   },
   externals: [nodeExternals()], // Need this to avoid error when working with Express
   module: {
     rules: [
       {
-        // Transpiles ES6-8 into ES5
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -31,18 +29,17 @@ module.exports = {
         }
       },
       {
-        // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins 
         test: /\.html$/,
         use: [{ loader: 'html-loader' }]
       }
     ]
+  },
+  stats: {
+    // copied from `'minimal'`
+    errors: true,
+    warnings: true,
+    // our additional options
+    moduleTrace: true,
+    errorDetails: true
   }
-  // plugins: [
-  //   new HtmlWebPackPlugin({
-  //     template: './index.html',
-  //     filename: './index.html',
-  //     excludeChunks: [ 'server' ]
-  //   })
-  // ]
-}
+};
