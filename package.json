@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "npm run clean && babel ./ --out-dir ./dist/ --ignore ./node_modules/ ",
+    "build": "npm run clean && babel ./src --out-dir ./dist/ --ignore ./node_modules/ && cp -a ./src/views/. ./dist/views && cp -a ./src/public/. ./dist/public ",
     "start": "node ./dist/server.js",
-    "start:dev": "NODE_ENV=dev nodemon ./server.js --exec babel-node | bunyan",
+    "start:dev": "NODE_ENV=dev nodemon ./src/server.js --exec babel-node | bunyan",
     "test:lint": "eslint .",
     "clean": "rm -rf ./dist"
   },

@@ -1,17 +1,9 @@
-'use strict';
+const reader = new FileReader();
+const xhr = new XMLHttpRequest();
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var reader = new FileReader();
-var xhr = new XMLHttpRequest();
-
-var previewFile = function previewFile() {
-  var preview = document.getElementById('image_preview');
-  var file = document.querySelector('input[type=file]').files[0];
+const previewFile = () => {
+  const preview = document.getElementById('image_preview');
+  const file = document.querySelector('input[type=file]').files[0];
   reader.onloadend = function () {
     preview.src = reader.result;
   };
@@ -22,21 +14,21 @@ var previewFile = function previewFile() {
   }
 };
 
-var ajaxRequest = function ajaxRequest() {
+const ajaxRequest = () => {
   // event.preventDefault();
-  var file = document.querySelector('input[type=file]').files[0];
+  const file = document.querySelector('input[type=file]').files[0];
   console.log('file', file);
   console.log(21321312);
-  var imageBuffer = reader.result;
+  const imageBuffer = reader.result;
   reader.readAsDataURL(file);
   xhr.open('POST', '/upload', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   file.buffer = imageBuffer;
-  var regData = {
+  const regData = {
     language: $('#langSelect').val(),
-    file: file
+    file
   };
-  xhr.send((0, _stringify2.default)(regData));
+  xhr.send(JSON.stringify(regData));
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
     if (xhr.status === 200) {
@@ -44,7 +36,7 @@ var ajaxRequest = function ajaxRequest() {
       $('#download').css({ display: 'block' });
       $('#converted_text').html(xhr.response);
     } else {
-      console.log('Error in ajax', xhr.status + '-' + xhr.statusText);
+      console.log('Error in ajax', `${xhr.status}-${xhr.statusText}`);
     }
   };
 };

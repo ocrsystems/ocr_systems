@@ -1,11 +1,3 @@
-"use strict";
-
-var _typeof2 = require("babel-runtime/helpers/typeof");
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define([], factory);
@@ -18,15 +10,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     factory();
     global.FileSaver = mod.exports;
   }
-})(undefined, function () {
+})(this, function () {
   "use strict";
-
-  var _global = (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) === 'object' && window.window === window ? window : (typeof self === "undefined" ? "undefined" : (0, _typeof3.default)(self)) === 'object' && self.self === self ? self : (typeof global === "undefined" ? "undefined" : (0, _typeof3.default)(global)) === 'object' && global.global === global ? global : void 0;
+  var _global = typeof window === 'object' && window.window === window ? window : typeof self === 'object' && self.self === self ? self : typeof global === 'object' && global.global === global ? global : void 0;
 
   function bom(blob, opts) {
     if (typeof opts === 'undefined') opts = {
       autoBom: false
-    };else if ((typeof opts === "undefined" ? "undefined" : (0, _typeof3.default)(opts)) !== 'object') {
+    }; else if (typeof opts !== 'object') {
       console.warn('Deprecated: Expected third argument to be a object');
       opts = {
         autoBom: !opts
@@ -66,7 +57,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
     try {
       xhr.send();
-    } catch (e) {}
+    } catch (e) { }
 
     return xhr.status >= 200 && xhr.status <= 299;
   } // `a.click()` doesn't work for all browsers (#465)
@@ -83,96 +74,96 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   var saveAs = _global.saveAs || ( // probably in some web worker
-  (typeof window === "undefined" ? "undefined" : (0, _typeof3.default)(window)) !== 'object' || window !== _global ? function saveAs() {}
-  /* noop */
-  // Use download attribute first if possible (#193 Lumia mobile)
-  : 'download' in HTMLAnchorElement.prototype ? function saveAs(blob, name, opts) {
-    var URL = _global.URL || _global.webkitURL;
-    var a = document.createElement('a');
-    name = name || blob.name || 'download';
-    a.download = name;
-    a.rel = 'noopener'; // tabnabbing
-    // TODO: detect chrome extensions & packaged apps
-    // a.target = '_blank'
-
-    if (typeof blob === 'string') {
-      // Support regular links
-      a.href = blob;
-
-      if (a.origin !== location.origin) {
-        corsEnabled(a.href) ? download(blob, name, opts) : click(a, a.target = '_blank');
-      } else {
-        click(a);
-      }
-    } else {
-      // Support blobs
-      a.href = URL.createObjectURL(blob);
-      setTimeout(function () {
-        URL.revokeObjectURL(a.href);
-      }, 4E4); // 40s
-
-      setTimeout(function () {
-        click(a);
-      }, 0);
-    }
-  } // Use msSaveOrOpenBlob as a second approach
-  : 'msSaveOrOpenBlob' in navigator ? function saveAs(blob, name, opts) {
-    name = name || blob.name || 'download';
-
-    if (typeof blob === 'string') {
-      if (corsEnabled(blob)) {
-        download(blob, name, opts);
-      } else {
+    typeof window !== 'object' || window !== _global ? function saveAs() { }
+      /* noop */
+      // Use download attribute first if possible (#193 Lumia mobile)
+      : 'download' in HTMLAnchorElement.prototype ? function saveAs(blob, name, opts) {
+        var URL = _global.URL || _global.webkitURL;
         var a = document.createElement('a');
-        a.href = blob;
-        a.target = '_blank';
-        setTimeout(function () {
-          click(a);
-        });
-      }
-    } else {
-      navigator.msSaveOrOpenBlob(bom(blob, opts), name);
-    }
-  } // Fallback to using FileReader and a popup
-  : function saveAs(blob, name, opts, popup) {
-    // Open a popup immediately do go around popup blocker
-    // Mostly only available on user interaction and the fileReader is async so...
-    popup = popup || open('', '_blank');
+        name = name || blob.name || 'download';
+        a.download = name;
+        a.rel = 'noopener'; // tabnabbing
+        // TODO: detect chrome extensions & packaged apps
+        // a.target = '_blank'
 
-    if (popup) {
-      popup.document.title = popup.document.body.innerText = 'downloading...';
-    }
+        if (typeof blob === 'string') {
+          // Support regular links
+          a.href = blob;
 
-    if (typeof blob === 'string') return download(blob, name, opts);
-    var force = blob.type === 'application/octet-stream';
+          if (a.origin !== location.origin) {
+            corsEnabled(a.href) ? download(blob, name, opts) : click(a, a.target = '_blank');
+          } else {
+            click(a);
+          }
+        } else {
+          // Support blobs
+          a.href = URL.createObjectURL(blob);
+          setTimeout(function () {
+            URL.revokeObjectURL(a.href);
+          }, 4E4); // 40s
 
-    var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari;
+          setTimeout(function () {
+            click(a);
+          }, 0);
+        }
+      } // Use msSaveOrOpenBlob as a second approach
+        : 'msSaveOrOpenBlob' in navigator ? function saveAs(blob, name, opts) {
+          name = name || blob.name || 'download';
 
-    var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
+          if (typeof blob === 'string') {
+            if (corsEnabled(blob)) {
+              download(blob, name, opts);
+            } else {
+              var a = document.createElement('a');
+              a.href = blob;
+              a.target = '_blank';
+              setTimeout(function () {
+                click(a);
+              });
+            }
+          } else {
+            navigator.msSaveOrOpenBlob(bom(blob, opts), name);
+          }
+        } // Fallback to using FileReader and a popup
+          : function saveAs(blob, name, opts, popup) {
+            // Open a popup immediately do go around popup blocker
+            // Mostly only available on user interaction and the fileReader is async so...
+            popup = popup || open('', '_blank');
 
-    if ((isChromeIOS || force && isSafari) && typeof FileReader !== 'undefined') {
-      // Safari doesn't allow downloading of blob URLs
-      var reader = new FileReader();
+            if (popup) {
+              popup.document.title = popup.document.body.innerText = 'downloading...';
+            }
 
-      reader.onloadend = function () {
-        var url = reader.result;
-        url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;');
-        if (popup) popup.location.href = url;else location = url;
-        popup = null; // reverse-tabnabbing #460
-      };
+            if (typeof blob === 'string') return download(blob, name, opts);
+            var force = blob.type === 'application/octet-stream';
 
-      reader.readAsDataURL(blob);
-    } else {
-      var URL = _global.URL || _global.webkitURL;
-      var url = URL.createObjectURL(blob);
-      if (popup) popup.location = url;else location.href = url;
-      popup = null; // reverse-tabnabbing #460
+            var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari;
 
-      setTimeout(function () {
-        URL.revokeObjectURL(url);
-      }, 4E4); // 40s
-    }
-  });
+            var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
+
+            if ((isChromeIOS || force && isSafari) && typeof FileReader !== 'undefined') {
+              // Safari doesn't allow downloading of blob URLs
+              var reader = new FileReader();
+
+              reader.onloadend = function () {
+                var url = reader.result;
+                url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                if (popup) popup.location.href = url; else location = url;
+                popup = null; // reverse-tabnabbing #460
+              };
+
+              reader.readAsDataURL(blob);
+            } else {
+              var URL = _global.URL || _global.webkitURL;
+              var url = URL.createObjectURL(blob);
+              if (popup) popup.location = url; else location.href = url;
+              popup = null; // reverse-tabnabbing #460
+
+              setTimeout(function () {
+                URL.revokeObjectURL(url);
+              }, 4E4); // 40s
+            }
+          });
   _global.saveAs = saveAs.saveAs = saveAs;
 
   if (typeof module !== 'undefined') {
