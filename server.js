@@ -3,10 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import createError from 'http-errors';
 import cookieParser from 'cookie-parser';
-import webpack from 'webpack';
 import logger from 'morgan';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackConfig from './webpack.config';
 import indexRouter from './routes/index';
 import uploadRouter from './routes/upload';
 
@@ -21,7 +18,6 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
