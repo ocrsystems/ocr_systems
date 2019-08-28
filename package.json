@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "yarn clean && babel ./ --out-dir ./dist/ --ignore ./node_modules/ ",
+    "build": "npm run clean && babel ./ --out-dir ./dist/ --ignore ./node_modules/ ",
     "start": "node ./dist/server.js",
     "start:dev": "NODE_ENV=dev nodemon ./server.js --exec babel-node | bunyan",
     "test:lint": "eslint .",
