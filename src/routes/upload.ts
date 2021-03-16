@@ -1,18 +1,21 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import uuid from 'uuid/v1';
-import { spawn } from 'child_process';
+import uuid from 'uuid';
+// import { spawn } from 'child_process';
 import upload from '../middleware/uploadMiddleware';
-const tesseract = require('node-tesseract-ocr')
+
+const tesseract = require('node-tesseract-ocr');
 
 const router = express.Router();
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const imagePath = path.join(__dirname, './../public/images');
-    const fileName = `${uuid()}.png`;
+    const imagePath = path.join(`${__dirname}/../`, './tmp');
+    console.log('imagePath::', imagePath);
+    const fileName = `${uuid.v1()}.png`;
     const filePath = path.resolve(`${imagePath}/${fileName}`);
+    console.log('filePath: ', filePath);
     console.log('req.body.file', typeof req.body.language);
     if (!req.body.file) throw new Error('Please provide an image');
     // await sharp(Buffer.from(req.body.file.buffer)).resize(300, 300, {
@@ -28,15 +31,15 @@ router.post('/', upload.single('image'), async (req, res) => {
     const config = {
       lang: 'eng',
       oem: 1,
-      psm: 3
+      psm: 3,
     };
     tesseract
       .recognize(`${imagePath}/${fileName}`, config)
-      .then(text => {
+      .then((text: string) => {
         console.log('Result:', text);
         return res.status(200).send(text);
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.log('error:', err);
       });
 
@@ -54,7 +57,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     // });
   } catch (error) {
     console.log('Error in Image uploading', error);
-    res.status(error.statu || 502).json({ error: error.message });
+    res.status(error.status || 502).json({ error: error.message });
   }
 });
 
