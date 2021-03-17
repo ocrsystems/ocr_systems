@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
   background-color: #0a0a0a !important;
 }
 
@@ -18,28 +18,27 @@ body {
   box-shadow: 1px 1px 5px darkslategrey;
 }
 
-#validatedCustomFile{
+#validatedCustomFile {
   z-index: 2;
   height: 400px;
   width: 75%;
   position: absolute;
 }
-#drug_and_drop{
+#drug_and_drop {
   float: left;
 }
-#validatedCustomFileLabel{
+#validatedCustomFileLabel {
   z-index: 1;
   height: 400px;
   width: 75%;
   position: absolute;
 }
-#download{
+#download {
   float: right;
   /* border: 1px solid gray;
   box-shadow: 1px 1px 5px  darkslategrey; */
   height: 100%;
-  color: #b5b5b5;
-  display: none
+  display: none;
 }
 
 #submit_btn {
@@ -49,9 +48,12 @@ body {
   color: #b5b5b5;
 }
 
-#submit_btn:hover{
+#submit_btn:hover {
   box-shadow: 0px 0px 40px rgb(233, 0, 0);
   background-color: rgb(156, 0, 0);
   color: white;
 }
 
+#converted_text {
+  color: #b5b5b5;
+}
