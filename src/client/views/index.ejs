@@ -25,8 +25,8 @@
     <form class="was-validated box" action="" method="POST" id="uploadForm" enctype="multipart/form-data">
       <div class="form-group">
         <select id="langSelect" class="custom-select " required>
-          <option value="en">English</option>
-          <option value="ru">Russian</option>
+          <option value="eng">English</option>
+          <!-- <option value="ru">Russian</option> -->
         </select>
         <button id="submit_btn" class="btn btn-md" type="button" onclick="ajaxRequest()">Start
           process</button>
@@ -39,8 +39,9 @@
             <img id="image_preview" src="./images/ui/drag_and_drop.png" height="400" alt="Image preview...">
           </label>
         </div>
+        <br>
         <div id="download" class="col-md-6">
-          <p id="converted_text"></p>
+          <pre id="converted_text"></pre>
         </div>
       </div>
     </form>
