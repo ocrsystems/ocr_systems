@@ -1,4 +1,4 @@
-const tesseract = require('node-tesseract-ocr');
+import { recognize } from './../../lib';
 
 const getConfig = (options: any) => {
   return {
@@ -14,7 +14,7 @@ const getConfig = (options: any) => {
 export const getTextFromImage = async (options: any, path: string) => {
   try {
     const config = getConfig(options);
-    const result = await tesseract.recognize(path, config);
+    const result = await recognize(path, config);
     console.log('Result from tesseract: ', result);
     return result;
   } catch (err: any) {
