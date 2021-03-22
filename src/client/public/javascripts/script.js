@@ -10,7 +10,7 @@ const previewFile = () => {
   if (file) {
     reader.readAsDataURL(file);
   } else {
-    preview.src = '';
+    preview.src = './../images/ui/drag_and_drop.png';
   }
 };
 
@@ -25,7 +25,7 @@ const ajaxRequest = () => {
   file.buffer = imageBuffer;
   const regData = {
     language: $('#langSelect').val(),
-    file
+    file,
   };
   xhr.send(JSON.stringify(regData));
   xhr.onreadystatechange = function () {
