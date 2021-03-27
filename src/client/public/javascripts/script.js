@@ -20,7 +20,7 @@ const ajaxRequest = () => {
   console.log('file', file);
   const imageBuffer = reader.result;
   reader.readAsDataURL(file);
-  xhr.open('POST', '/upload', true);
+  xhr.open('POST', '/tesseract/upload', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   file.buffer = imageBuffer;
   const regData = {

@@ -2,14 +2,11 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import uuid from 'uuid';
-import upload from '../middleware/uploadMiddleware';
-import { getTextFromImage } from './../utils';
+import { getTextFromImage } from '../../utils';
 
-const router = express.Router();
-
-router.post('/', upload.single('image'), async (req, res) => {
+export default async (req: express.Request, res: express.Response) => {
   try {
-    const imagePath: string = path.join(`${__dirname}/../`, 'tmp');
+    const imagePath: string = path.join(`${__dirname}/../../`, 'tmp');
     const uniqueId: string = uuid.v1();
     const fileName: string = `${uniqueId}.png`;
     const txtFileName: string = `${uniqueId}.txt`;
@@ -34,6 +31,4 @@ router.post('/', upload.single('image'), async (req, res) => {
     console.log('Error in Image uploading', error);
     return res.status(error.status || 502).json({ error: error.message });
   }
-});
-
-export default router;
+};
