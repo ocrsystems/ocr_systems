@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../../middleware/uploadMiddleware';
-import uploadController from './upload';
+import uploadController from '../../controllers/tesseract';
 
 const router = express.Router();
 

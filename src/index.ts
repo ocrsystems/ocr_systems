@@ -1,11 +1,8 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import createError from 'http-errors';
 // import logger from 'morgan';
-import indexRouter from './routes/home';
-import tesseractRouter from './routes/tesseract';
-import neuralRouter from './routes/neural';
+import indexRouter from './routes';
 const ejsMate = require('ejs-mate');
 
 const app = express();
@@ -22,17 +19,6 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static(path.join(`${__dirname}/client`, 'public')));
 
 app.use('/', indexRouter);
-app.use('/tesseract', tesseractRouter);
-app.use('/neural', neuralRouter);
-
-app.use((req, res, next) => next(createError(404)));
-
-app.use((err: Error, req: express.Request, res: express.Response) => {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(409);
-  res.render('error');
-});
 
 const PORT = process.env.PORT || 3000;
 
