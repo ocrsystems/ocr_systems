@@ -16,6 +16,7 @@ body {
 #image_preview {
   border: 1px solid darkgray;
   box-shadow: 1px 1px 5px darkslategrey;
+  width: 100%;
 }
 
 #validatedCustomFile {
@@ -35,9 +36,9 @@ body {
 }
 #download {
   float: right;
-  /* border: 1px solid gray;
-  box-shadow: 1px 1px 5px  darkslategrey; */
-  height: 100%;
+  border: 1px solid gray;
+  box-shadow: 1px 1px 10px  rgb(101, 124, 124);
+  width: 100%;
   display: none;
 }
 
@@ -56,4 +57,5 @@ body {
 
 #converted_text {
   color: #b5b5b5;
+  width: 100%;
 }

@@ -1,0 +1,34 @@
+<% layout("layout") -%>
+
+<div class="container-fluid" id="main_div">
+  <form class="was-validated box" action="" method="POST" id="uploadForm" enctype="multipart/form-data">
+    <div class="form-group">
+      <select id="langSelect" class="custom-select" required>
+        <option value="eng">English</option>
+        <!-- <option value="ru">Russian</option> -->
+      </select>
+      <button id="submit_btn" class="btn btn-md" type="button" onclick="ajaxRequest()">Start process</button>
+    </div>
+  </form>
+  <div id="upload_download row">
+    <div class="file-upload-wrapper col-md-6" id="drug_and_drop">
+      <input
+        type="file"
+        class="custom-file-input"
+        onchange="previewFile()"
+        id="validatedCustomFile"
+        name="image"
+        accept="image/*"
+        data-max-file-size="5M"
+        required
+      />
+      <label id="validatedCustomFileLabel" class="file-upload" for="validatedCustomFile">
+        <img id="image_preview" src="./images/ui/drag_and_drop.png" alt="Image preview..." />
+      </label>
+    </div>
+    <br />
+    <div id="download" class="col-md-6">
+      <pre id="converted_text"></pre>
+    </div>
+  </div>
+</div>
