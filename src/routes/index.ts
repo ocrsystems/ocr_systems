@@ -7,7 +7,11 @@ const router = express.Router();
 
 router.get('/', (req, res) => res.render('index', { title: 'OCR Systems' }));
 
-router.get('/api/ping', (req, res) => res.send({ status: 'Success', version: '1.0.0' }));
+router.get('/api/ping', (req, res) => {
+  console.log('TESTING::::');
+  console.log('REQ::::', req);
+  res.send({ status: 'Success', version: '1.0.0' });
+});
 
 router.use('/tesseract', tesseractRouter);
 router.use('/neural', neuralRouter);
